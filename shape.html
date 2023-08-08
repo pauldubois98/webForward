@@ -9,18 +9,6 @@
             align-items: center;
         }
 
-        form {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            width: 50em;
-        }
-
-        input {
-            display: block;
-            width: 5em;
-        }
-
         canvas {
             border: 1px solid black;
             margin: 0.25em;
@@ -50,8 +38,9 @@
     minicanvas = document.getElementById('mini-canvas');
     ctx = canvas.getContext('2d');
     // draw a square in the center of the canvas
-    ctx.fillStyle = 'red';
-    ctx.fillRect(100, 100, 200, 200);
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 20;
+    ctx.strokeRect(100, 100, 200, 200);
     minictx = minicanvas.getContext('2d');
     minictx.drawImage(canvas, 0, 0, minicanvas.width, minicanvas.height);
     img = minictx.getImageData(0, 0, minicanvas.width, minicanvas.height);
