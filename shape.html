@@ -39,6 +39,9 @@
 
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
+    img  = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    x = new Float32Array(img.data) ;
+
 </script>
 
 </html>
