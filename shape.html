@@ -21,6 +21,15 @@
             width: 5em;
         }
 
+        canvas {
+            border: 1px solid black;
+            margin: 0.25em;
+        }
+
+        #mini-canvas {
+            display: none;
+        }
+
         #predictions {
             margin-top: 1em;
             font-size: 2em;
@@ -31,16 +40,22 @@
 <body>
     <h1>Shape Reco Example</h1>
     <canvas id="canvas" width="400" height="400"></canvas>
+    <canvas id="mini-canvas" width="40" height="40"></canvas>
 
     <div><input type="button" value="Run" onclick="runExample()" /></div>
     <div id="predictions"></div>
 </body>
 <script>
 
-    canvas = document.getElementById('canvas');
+    minicanvas = document.getElementById('mini-canvas');
     ctx = canvas.getContext('2d');
-    img  = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    x = new Float32Array(img.data) ;
+    // draw a square in the center of the canvas
+    ctx.fillStyle = 'red';
+    ctx.fillRect(100, 100, 200, 200);
+    minictx = minicanvas.getContext('2d');
+    minictx.drawImage(canvas, 0, 0, minicanvas.width, minicanvas.height);
+    img = minictx.getImageData(0, 0, minicanvas.width, minicanvas.height);
+    x = new Float32Array(img.data);
 
 </script>
 
