@@ -28,7 +28,10 @@
         const session = new onnx.InferenceSession();
         await session.loadModel("./add_model.onnx");
         const x = new Float32Array(10).fill(1);
-        const tensorX = new onnx.Tensor(x, 'float32', [1,10]);
+        for (let i = 0; i < 10; i++) {
+            x[i] = parseFloat(document.getElementById('input' + i).value);
+        }
+        const tensorX = new onnx.Tensor(x, 'float32', [1, 10]);
 
         const outputMap = await session.run([tensorX]);
         const outputValue = outputMap.values().next().value.data[0];
