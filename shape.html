@@ -29,31 +29,33 @@
     <h1>Shape Reco Example</h1>
     <canvas id="canvas" width="400" height="400"></canvas>
     <canvas id="mini-canvas" width="40" height="40"></canvas>
+    <button onclick="ctx.clearRect(0, 0, canvas.width, canvas.height);">Clear</button>
 
     <div><input type="button" value="Run" onclick="runExample()" /></div>
     <div id="predictions"></div>
 </body>
 <script>
 
-    minicanvas = document.getElementById('mini-canvas');
-    ctx = canvas.getContext('2d');
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    var minicanvas = document.getElementById('mini-canvas');
+    var minictx = minicanvas.getContext('2d');
     // draw a square in the center of the canvas
     ctx.strokeStyle = 'dimgrey';
     ctx.lineWidth = 10;
     ctx.lineCap = "round";
     ctx.strokeRect(100, 100, 200, 200);
-    minictx = minicanvas.getContext('2d');
 
     // allow drawing when click on the canvas
     var isDrawing = false;
     var lastX;
     var lastY;
-    canvas.addEventListener('mousedown', function(e) {
+    canvas.addEventListener('mousedown', function (e) {
         isDrawing = true;
         lastX = e.offsetX;
         lastY = e.offsetY;
     });
-    canvas.addEventListener('mousemove', function(e) {
+    canvas.addEventListener('mousemove', function (e) {
         if (isDrawing === true) {
             ctx.beginPath();
             ctx.moveTo(lastX, lastY);
@@ -63,7 +65,7 @@
             lastY = e.offsetY;
         }
     });
-    canvas.addEventListener('mouseup', function(e) {
+    canvas.addEventListener('mouseup', function (e) {
         isDrawing = false;
     });
 
