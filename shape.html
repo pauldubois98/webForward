@@ -38,10 +38,34 @@
     minicanvas = document.getElementById('mini-canvas');
     ctx = canvas.getContext('2d');
     // draw a square in the center of the canvas
-    ctx.strokeStyle = 'black';
-    ctx.lineWidth = 20;
+    ctx.strokeStyle = 'dimgrey';
+    ctx.lineWidth = 10;
     ctx.strokeRect(100, 100, 200, 200);
     minictx = minicanvas.getContext('2d');
+
+    // allow drawing when click on the canvas
+    var isDrawing = false;
+    var lastX;
+    var lastY;
+    canvas.addEventListener('mousedown', function(e) {
+        isDrawing = true;
+        lastX = e.offsetX;
+        lastY = e.offsetY;
+    });
+    canvas.addEventListener('mousemove', function(e) {
+        if (isDrawing === true) {
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+            lastX = e.offsetX;
+            lastY = e.offsetY;
+        }
+    });
+    canvas.addEventListener('mouseup', function(e) {
+        isDrawing = false;
+    });
+
     minictx.drawImage(canvas, 0, 0, minicanvas.width, minicanvas.height);
     img = minictx.getImageData(0, 0, minicanvas.width, minicanvas.height);
     x = new Float32Array(img.data);
