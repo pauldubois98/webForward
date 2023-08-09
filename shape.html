@@ -14,9 +14,9 @@
             margin: 0.25em;
         }
 
-        #mini-canvas {
+        /* #mini-canvas {
             display: none;
-        }
+        } */
 
         #predictions {
             margin-top: 1em;
@@ -28,7 +28,7 @@
 <body>
     <h1>Shape Reco Example</h1>
     <canvas id="canvas" width="400" height="400"></canvas>
-    <canvas id="mini-canvas" width="32" height="32"></canvas>
+    <canvas id="mini-canvas" width="64" height="64"></canvas>
     <button onclick="ctx.clearRect(0, 0, canvas.width, canvas.height);">Clear</button>
 
     <div><input type="button" value="Run" onclick="runExample()" /></div>
@@ -72,9 +72,22 @@
         isDrawing = false;
     });
 
-    minictx.drawImage(canvas, 0, 0, minicanvas.width, minicanvas.height);
-    img = minictx.getImageData(0, 0, minicanvas.width, minicanvas.height);
-    x = new Float32Array(img.data);
+    async function runExample() {
+        minictx.drawImage(canvas, 0, 0, minicanvas.width, minicanvas.height);
+        img = minictx.getImageData(0, 0, minicanvas.width, minicanvas.height);
+        x = new Float32Array(minicanvas.width * minicanvas.height * 3);
+        for (let i = 0; i < minicanvas.height; i++) {
+            for (let j = 0; j < minicanvas.width; j++) {
+                x[0 * minicanvas.width * minicanvas.height + i * minicanvas.width + j] = img.data[4 * (i * minicanvas.width + j) + 0] / 255;
+                x[1 * minicanvas.width * minicanvas.height + i * minicanvas.width + j] = img.data[4 * (i * minicanvas.width + j) + 1] / 255;
+                x[2 * minicanvas.width * minicanvas.height + i * minicanvas.width + j] = img.data[4 * (i * minicanvas.width + j) + 2] / 255;
+            }
+        }
+        const tensorX = new onnx.Tensor(x, 'float32', [1, 3, minicanvas.width, minicanvas.height]);
+        const outputMap = await session.run([tensorX]);
+        const outputValue = outputMap.values().next().value.data;
+        document.getElementById('predictions').innerHTML = outputValue;
+    }
 
 </script>
 
