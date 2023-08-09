@@ -47,11 +47,11 @@
     <div id="predictions"></div>
 </body>
 <script>
+    const session = new onnx.InferenceSession();
+    await session.loadModel("./add10.onnx");
 
     async function runExample() {
-        const session = new onnx.InferenceSession();
-        await session.loadModel("./add_model.onnx");
-        const x = new Float32Array(10).fill(1);
+        var x = new Float32Array(10).fill(1);
         for (let i = 0; i < 10; i++) {
             x[i] = parseFloat(document.getElementById('input' + i).value);
         }
