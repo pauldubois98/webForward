@@ -53,12 +53,18 @@
     var isDrawing = false;
     var lastX;
     var lastY;
-    canvas.addEventListener('mousedown', function (e) {
+    function addListenerMulti(element, eventNames, listener) {
+        var events = eventNames.split(" ");
+        for (var i = 0, iLen = events.length; i < iLen; i++) {
+            element.addEventListener(events[i], listener, false);
+        }
+    }
+    addListenerMulti(canvas, "pointerdown mousedown", function (e) {
         isDrawing = true;
         lastX = e.offsetX;
         lastY = e.offsetY;
     });
-    canvas.addEventListener('mousemove', function (e) {
+    addListenerMulti(canvas, "pointermove mousemove", function (e) {
         if (isDrawing === true) {
             ctx.beginPath();
             ctx.moveTo(lastX, lastY);
@@ -68,7 +74,7 @@
             lastY = e.offsetY;
         }
     });
-    canvas.addEventListener('mouseup', function (e) {
+    addListenerMulti(canvas, "pointerup mouseup", function (e) {
         isDrawing = false;
     });
 
@@ -98,7 +104,7 @@
         if (class_nb == 2) {
             outputValue = "Triangle";
         }
-        document.getElementById('predictions').innerHTML = outputValue + " (" + Math.round(10000 * Math.max(...outputValues))/100 + "%)";
+        document.getElementById('predictions').innerHTML = outputValue + " (" + Math.round(10000 * Math.max(...outputValues)) / 100 + "%)";
     }
 
 </script>
