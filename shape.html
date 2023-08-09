@@ -40,9 +40,11 @@
     <div id="predictions"></div>
 </body>
 <script>
-
     const session = new onnx.InferenceSession();
-    session.loadModel("./shape_reco.onnx");
+    async function init() {
+        await session.loadModel("./shape_reco.onnx");
+        runExample();
+    }
 
     var canvas = document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
@@ -112,6 +114,8 @@
         }
         document.getElementById('predictions').innerHTML = outputValue + " (" + Math.round(10000 * Math.max(...outputValues)) / 100 + "%)";
     }
+
+    init();
 
 </script>
 
