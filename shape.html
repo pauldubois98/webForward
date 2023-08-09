@@ -73,6 +73,7 @@
     });
 
     async function runExample() {
+        minictx.clearRect(0, 0, minicanvas.width, minicanvas.height);
         minictx.drawImage(canvas, 0, 0, minicanvas.width, minicanvas.height);
         img = minictx.getImageData(0, 0, minicanvas.width, minicanvas.height);
         x = new Float32Array(minicanvas.width * minicanvas.height * 3);
