@@ -48,7 +48,7 @@
 </body>
 <script>
     const session = new onnx.InferenceSession();
-    await session.loadModel("./add10.onnx");
+    session.loadModel("./add10.onnx");
 
     async function runExample() {
         var x = new Float32Array(10).fill(1);
