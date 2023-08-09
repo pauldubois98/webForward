@@ -86,8 +86,19 @@
         }
         const tensorX = new onnx.Tensor(x, 'float32', [1, 3, minicanvas.width, minicanvas.height]);
         const outputMap = await session.run([tensorX]);
-        const outputValue = outputMap.values().next().value.data;
-        document.getElementById('predictions').innerHTML = outputValue;
+        const outputValues = outputMap.values().next().value.data;
+        const class_nb = outputValues.indexOf(Math.max(...outputValues));
+        var outputValue;
+        if (class_nb == 0) {
+            outputValue = "Circle";
+        }
+        if (class_nb == 1) {
+            outputValue = "Square";
+        }
+        if (class_nb == 2) {
+            outputValue = "Triangle";
+        }
+        document.getElementById('predictions').innerHTML = outputValue + " (" + Math.round(10000 * Math.max(...outputValues))/100 + "%)";
     }
 
 </script>
