@@ -15,9 +15,9 @@
             touch-action: none;
         }
 
-        #mini-canvas {
+        /* #mini-canvas {
             display: none;
-        }
+        } */
 
         #predictions {
             margin-top: 1em;
@@ -107,10 +107,13 @@
             outputValue = "Circle";
         }
         if (class_nb == 1) {
-            outputValue = "Square";
+            outputValue = "None";
         }
         if (class_nb == 2) {
-            outputValue = "Triangle";
+            outputValue = "Squares";
+        }
+        if (class_nb == 3) {
+            outputValue = "Triangles";
         }
         document.getElementById('predictions').innerHTML = outputValue + " (" + Math.round(10000 * Math.max(...outputValues)) / 100 + "%)";
     }
