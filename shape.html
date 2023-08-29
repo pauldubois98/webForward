@@ -94,9 +94,12 @@
         for (let i = 0; i < minicanvas.height; i++) {
             for (let j = 0; j < minicanvas.width; j++) {
                 a = img.data[4 * (i * minicanvas.width + j) + 3] / 255;
-                x[0 * minicanvas.width * minicanvas.height + i * minicanvas.width + j] = 1 - ((1 - a) + (a * (img.data[4 * (i * minicanvas.width + j) + 0] / 255)));
-                x[1 * minicanvas.width * minicanvas.height + i * minicanvas.width + j] = 1 - ((1 - a) + (a * (img.data[4 * (i * minicanvas.width + j) + 1] / 255)));
-                x[2 * minicanvas.width * minicanvas.height + i * minicanvas.width + j] = 1 - ((1 - a) + (a * (img.data[4 * (i * minicanvas.width + j) + 2] / 255)));
+                // x[0 * minicanvas.width * minicanvas.height + i * minicanvas.width + j] = 1 - ((1 - a) + (a * (img.data[4 * (i * minicanvas.width + j) + 0] / 255)));
+                // x[1 * minicanvas.width * minicanvas.height + i * minicanvas.width + j] = 1 - ((1 - a) + (a * (img.data[4 * (i * minicanvas.width + j) + 1] / 255)));
+                // x[2 * minicanvas.width * minicanvas.height + i * minicanvas.width + j] = 1 - ((1 - a) + (a * (img.data[4 * (i * minicanvas.width + j) + 2] / 255)));
+                x[0 * minicanvas.width * minicanvas.height + i * minicanvas.width + j] = (1 - a) + (a * (img.data[4 * (i * minicanvas.width + j) + 0] / 255));
+                x[1 * minicanvas.width * minicanvas.height + i * minicanvas.width + j] = (1 - a) + (a * (img.data[4 * (i * minicanvas.width + j) + 1] / 255));
+                x[2 * minicanvas.width * minicanvas.height + i * minicanvas.width + j] = (1 - a) + (a * (img.data[4 * (i * minicanvas.width + j) + 2] / 255));
             }
         }
 
