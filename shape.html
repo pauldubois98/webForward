@@ -94,31 +94,31 @@
         for (let i = 0; i < minicanvas.height; i++) {
             for (let j = 0; j < minicanvas.width; j++) {
                 a = img.data[4 * (i * minicanvas.width + j) + 3] / 255;
+                //// negative
                 // x[0 * minicanvas.width * minicanvas.height + i * minicanvas.width + j] = 1 - ((1 - a) + (a * (img.data[4 * (i * minicanvas.width + j) + 0] / 255)));
                 // x[1 * minicanvas.width * minicanvas.height + i * minicanvas.width + j] = 1 - ((1 - a) + (a * (img.data[4 * (i * minicanvas.width + j) + 1] / 255)));
                 // x[2 * minicanvas.width * minicanvas.height + i * minicanvas.width + j] = 1 - ((1 - a) + (a * (img.data[4 * (i * minicanvas.width + j) + 2] / 255)));
+                //// positive
                 x[0 * minicanvas.width * minicanvas.height + i * minicanvas.width + j] = (1 - a) + (a * (img.data[4 * (i * minicanvas.width + j) + 0] / 255));
                 x[1 * minicanvas.width * minicanvas.height + i * minicanvas.width + j] = (1 - a) + (a * (img.data[4 * (i * minicanvas.width + j) + 1] / 255));
                 x[2 * minicanvas.width * minicanvas.height + i * minicanvas.width + j] = (1 - a) + (a * (img.data[4 * (i * minicanvas.width + j) + 2] / 255));
             }
         }
-
-        // compute x mean, min, max
-        var x_min = 1000;
-        var x_max = 0;
-        var x_mean = 0;
-        for (let i = 0; i < x.length; i++) {
-            x_mean += x[i];
-            if (x[i] < x_min) {
-                x_min = x[i];
-            }
-            if (x[i] > x_max) {
-                x_max = x[i];
-            }
-        }
-        x_mean /= x.length;
-        console.log(x_mean, x_min, x_max);
-
+        //// compute x mean, min, max
+        // var x_min = 1000;
+        // var x_max = 0;
+        // var x_mean = 0;
+        // for (let i = 0; i < x.length; i++) {
+        //     x_mean += x[i];
+        //     if (x[i] < x_min) {
+        //         x_min = x[i];
+        //     }
+        //     if (x[i] > x_max) {
+        //         x_max = x[i];
+        //     }
+        // }
+        // x_mean /= x.length;
+        // console.log(x_mean, x_min, x_max);
         const tensorX = new onnx.Tensor(x, 'float32', [1, 3, minicanvas.width, minicanvas.height]);
         const outputMap = await session.run([tensorX]);
         const outputValues = outputMap.values().next().value.data;
