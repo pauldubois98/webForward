@@ -109,7 +109,34 @@
     });
 
     async function runExample() {
-        minictx.drawImage(canvas, 0, 0, minicanvas.width, minicanvas.height);
+        // get the min x and y for non-white pixels of the canvas
+        var img = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        var min_x = 1000;
+        var min_y = 1000;
+        var max_x = 0;
+        var max_y = 0;
+        var a;
+        for (let i = 0; i < canvas.height; i++) {
+            for (let j = 0; j < canvas.width; j++) {
+                a = img.data[4 * (i * canvas.width + j) + 3] / 255;
+                if (a > 0.5) {
+                    if (j < min_x) {
+                        min_x = j;
+                    }
+                    if (i < min_y) {
+                        min_y = i;
+                    }
+                    if (j > max_x) {
+                        max_x = j;
+                    }
+                    if (i > max_y) {
+                        max_y = i;
+                    }
+                }
+            }
+        }
+        console.log(min_x, min_y, max_x, max_y);
+        
         img = minictx.getImageData(0, 0, minicanvas.width, minicanvas.height);
         x = new Float32Array(minicanvas.width * minicanvas.height * 3);
         for (let i = 0; i < minicanvas.height; i++) {
