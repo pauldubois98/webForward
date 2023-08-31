@@ -28,6 +28,10 @@
             margin: 0.25em;
             padding: 1em;
         }
+
+        .main {
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -38,9 +42,9 @@
     <button onclick="ctx.clearRect(0, 0, canvas.width, canvas.height); predictions.innerHTML = '';">Clear</button>
     <!-- <button onclick="runExample();">Run</button> -->
     <div id="predictions">
-        <p>Circle: <em id="circle_proba">.</em>%</p>
-        <p>Star: <em id="star_proba">.</em>%</p>
-        <p>Triangle: <em id="triangle_proba">.</em>%</p>
+        <p id="circle">Circle: <em id="circle_proba">.</em>%</p>
+        <p id="star">Star: <em id="star_proba">.</em>%</p>
+        <p id="triangle">Triangle: <em id="triangle_proba">.</em>%</p>
     </div>
 </body>
 <script>
@@ -140,13 +144,19 @@
         const class_nb = outputValues.indexOf(Math.max(...outputValues));
         var outputValue;
         if (class_nb == 0) {
-            outputValue = "Circle";
+            circle.classList.add('main');
+            star.classList.remove('main');
+            triangle.classList.remove('main');
         }
         if (class_nb == 1) {
-            outputValue = "Star";
+            circle.classList.remove('main');
+            star.classList.add('main');
+            triangle.classList.remove('main');
         }
         if (class_nb == 2) {
-            outputValue = "Triangle";
+            circle.classList.remove('main');
+            star.classList.remove('main');
+            triangle.classList.add('main');
         }
         document.getElementById('predictions').innerHTML = outputValue + " (" + Math.round(10000 * Math.max(...outputValues)) / 100 + "%)";
     }
