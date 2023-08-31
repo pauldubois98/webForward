@@ -136,7 +136,12 @@
             }
         }
         console.log(min_x, min_y, max_x, max_y);
-        
+        m_h = (minicanvas.width - 5) / (max_x - min_x);
+        m_v = (minicanvas.height - 5) / (max_y - min_y);
+        m = Math.min(m_h, m_v);
+        k_h = 2.5 - m * min_x;
+        k_v = 2.5 - m * min_y;
+        minictx.drawImage(canvas, k_h, k_v, m * canvas.width, m * canvas.height);
         img = minictx.getImageData(0, 0, minicanvas.width, minicanvas.height);
         x = new Float32Array(minicanvas.width * minicanvas.height * 3);
         for (let i = 0; i < minicanvas.height; i++) {
