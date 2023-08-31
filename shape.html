@@ -45,7 +45,7 @@
     <h1>Shape Reco Example</h1>
     <canvas id="canvas" width="400" height="400"></canvas>
     <canvas id="mini-canvas" width="64" height="64"></canvas>
-    <button onclick="ctx.clearRect(0, 0, canvas.width, canvas.height); clear_pred();">Clear</button>
+    <button onclick="clear_all();">Clear</button>
     <!-- <button onclick="runExample();">Run</button> -->
     <div id="predictions">
         <p id="circle">Circle: <em id="circle_proba">.</em>%</p>
@@ -109,7 +109,6 @@
     });
 
     async function runExample() {
-        minictx.clearRect(0, 0, minicanvas.width, minicanvas.height);
         minictx.drawImage(canvas, 0, 0, minicanvas.width, minicanvas.height);
         img = minictx.getImageData(0, 0, minicanvas.width, minicanvas.height);
         x = new Float32Array(minicanvas.width * minicanvas.height * 3);
@@ -166,7 +165,9 @@
         }
     }
 
-    function clear_pred() {
+    function clear_all() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        minictx.clearRect(0, 0, minicanvas.width, minicanvas.height);
         circle_proba.innerHTML = '.';
         star_proba.innerHTML = '.';
         triangle_proba.innerHTML = '.';
