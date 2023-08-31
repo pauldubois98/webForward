@@ -156,6 +156,7 @@
         m = Math.min(m_h, m_v);
         k_h = 2.5 - m * min_x;
         k_v = 2.5 - m * min_y;
+        minictx.clearRect(0, 0, minicanvas.width, minicanvas.height);
         minictx.drawImage(canvas, k_h, k_v, m * canvas.width, m * canvas.height);
         img = minictx.getImageData(0, 0, minicanvas.width, minicanvas.height);
         x = new Float32Array(minicanvas.width * minicanvas.height * 3);
